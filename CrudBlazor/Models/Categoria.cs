@@ -1,4 +1,4 @@
-﻿namespace CrudBlazor.Data
+﻿namespace CrudBlazor.Models
 {
     public class Categoria
     {

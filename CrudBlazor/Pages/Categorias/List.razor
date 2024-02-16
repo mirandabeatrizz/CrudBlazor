@@ -1,0 +1,58 @@
+﻿@page "/categorias/list"
+@using CrudBlazor.Models
+@inject CrudBlazor.Services.ICategoriaService categoriaService
+@inject NavigationManager navManager
+@inject IJSRuntime js
+
+<h3>List</h3>
+<div>
+@if (categorias == null || !categorias.Any())
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>         
+            </thead>
+            <tbody>
+            @foreach (var category in categorias)
+                {
+                    <tr>
+                        <td>@category.Id</td>
+                        <td>@category.Nome</td>
+                        <td><button class="btn btn-danger">Excluir</button>
+                            <a href="categorias/update/@category.Id" class="btn btn-warning">Editar</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    List<Categoria> categorias = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        categorias = await categoriaService.FindAllAsync();
+    }
+
+    private async Task Delete(int categoryId)
+    {
+        var confirm = await js.InvokeAsync<bool>("confirm", "tem certeza que deseja excluir?");
+        if (confirm)
+        {
+            var response = await categoriaService.Delete(categoryId);
+            if (response.Success)
+            {
+                await OnInitializedAsync(); 
+            }
+        }
+    }
+}

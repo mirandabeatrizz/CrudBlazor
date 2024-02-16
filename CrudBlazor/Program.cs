@@ -1,13 +1,20 @@
 using CrudBlazor.Data;
+using CrudBlazor.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("DataBaseCrud"));
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+
+
 
 var app = builder.Build();
 

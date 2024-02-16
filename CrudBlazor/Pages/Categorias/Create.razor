@@ -1,0 +1,33 @@
+﻿@page "/categorias/create"
+@using CrudBlazor.Models
+@inject CrudBlazor.Services.ICategoriaService categoriaService
+@inject NavigationManager navManager
+
+
+<h3>create</h3>
+
+<EditForm Model="categoria" OnValidSubmit="CriarCategoria">
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <InputText @bind-Value="categoria.Nome" class="form-control" id="nome"></InputText>
+    </div>
+    <br>
+    <button class="btn btn-primary" type="submit">
+        Adicionar
+    </button>
+
+</EditForm>
+
+@code {
+
+    private Categoria categoria = new Categoria();
+    private async Task CriarCategoria()
+    {
+        await categoriaService.AddCategoria(categoria);
+        if (true)
+        {
+            navManager.NavigateTo("/categorias/list");
+        }
+    }
+
+}
