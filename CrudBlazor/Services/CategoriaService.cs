@@ -38,8 +38,6 @@ namespace CrudBlazor.Services
             return await _context.Categoria.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-
-
         public async Task UpdateCategoria(Categoria categoria)
         {
             bool hasAny = await _context.Categoria.AnyAsync(x => x.Id == categoria.Id);

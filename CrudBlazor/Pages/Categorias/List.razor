@@ -27,7 +27,9 @@
                     <tr>
                         <td>@category.Id</td>
                         <td>@category.Nome</td>
-                        <td><button class="btn btn-danger" onclick="async () => Delete(@category.Id)">Excluir</button>
+                        <td>
+                            <button class="btn btn-danger" @onclick="(() => DeleteCategoria(category.Id))">Excluir</button>
+
                             <a href="categorias/update/@category.Id" class="btn btn-warning">Editar</a></td>
                     </tr>
                 }
@@ -38,25 +40,23 @@
 
 @code {
     List<Categoria> categorias = new();
-   
+
 
     protected override async Task OnInitializedAsync()
     {
         categorias = await categoriaService.FindAllAsync();
     }
 
-   /*private async Task Delete(int categoryId)
-      {
-     [Parameter]
-     public int id{ get; set; }
-         var confirm = await js.InvokeAsync<bool>("confirm", "tem certeza que deseja excluir?");
-         if (confirm is false)
-             {
-         return;
-         }
-         var category = await categoriaService.Delete(categoryId);
+    private async Task DeleteCategoria(int categoryId)
+    {
+        var confirm = await js.InvokeAsync<bool>("confirm", "tem certeza que deseja excluir?");
+        if (confirm is false) return;
+        else{
+            categoriaService.Delete(categoryId);
+            categorias = await categoriaService.FindAllAsync(); // Recarrega a lista de categorias
+            StateHasChanged(); // Atualiza o componente para refletir as mudanças
+        }
+     }
+    
 
-         category = await categoriaService.FindAllAsync();
-         StateHasChanged();
-    }*/
 }

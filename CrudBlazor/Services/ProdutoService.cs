@@ -1,6 +1,6 @@
 ﻿namespace CrudBlazor.Services
 {
-    public class ProdutoService
+    public class ProdutoService : IProdutoService
     {
     }
 }
