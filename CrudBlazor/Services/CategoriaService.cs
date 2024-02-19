@@ -33,6 +33,11 @@ namespace CrudBlazor.Services
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<Categoria> FindById(int id)
+        {
+            return await _context.Categoria.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
 
 
         public async Task UpdateCategoria(Categoria categoria)

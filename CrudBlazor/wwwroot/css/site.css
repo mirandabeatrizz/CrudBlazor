@@ -3,6 +3,10 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.botao-add{
+    float: right;
+    width: 6%;
+}
 
 h1:focus {
     outline: none;

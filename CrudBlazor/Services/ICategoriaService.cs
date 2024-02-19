@@ -8,6 +8,7 @@ namespace CrudBlazor.Services
         Task Delete(int categoryId);
         Task UpdateCategoria(Categoria categoria);
         Task<List<Categoria>> FindAllAsync();
+        Task<Categoria> FindById(int id);
 
     }
 }
