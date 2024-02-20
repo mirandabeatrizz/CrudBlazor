@@ -7,7 +7,7 @@ namespace CrudBlazor.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Produto> Produto { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
     }
 }

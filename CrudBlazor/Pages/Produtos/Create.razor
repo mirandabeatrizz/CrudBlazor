@@ -1,0 +1,35 @@
+﻿@page "/produtos/create"
+@using CrudBlazor.Models
+@inject CrudBlazor.Services.IProdutoService produtoService
+@inject NavigationManager navManager
+
+
+<h3>create</h3>
+
+<EditForm Model="produto" OnValidSubmit="CriarProduto">
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <InputText @bind-Value="produto.Nome" class="form-control" id="nome"></InputText>
+        <label for="preco">Preço:</label>
+        <InputNumber @bind-Value="produto.Preco" class="form-control" id="preco"></InputNumber>
+    </div>
+    <br>
+    <button class="btn btn-primary" type="submit">
+        Adicionar
+    </button>
+
+</EditForm>
+
+@code {
+
+    private Produto produto = new Produto();
+    private async Task CriarProduto()
+    {
+        await produtoService.AddProduto(produto);
+        if (true)
+        {
+            navManager.NavigateTo("/produtos/list");
+        }
+    }
+
+}

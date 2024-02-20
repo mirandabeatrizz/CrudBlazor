@@ -4,17 +4,17 @@
     {
         public int Id { get; set; }
         public string? Nome { get; set; }
-        public double Price { get; set; }
+        public double Preco { get; set; }
         public Categoria Categoria { get; set; }
         public int CategoriaId { get; set; }
 
         public Produto() { }
 
-        public Produto(int id, string nome, double price, Categoria categoria)
+        public Produto(int id, string nome, double preco, Categoria categoria)
         {
             Id = id;
             Nome = nome;
-            Price = price;
+            Preco = preco;
             Categoria = categoria;
 
         }
