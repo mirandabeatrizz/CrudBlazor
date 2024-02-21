@@ -1,45 +1,48 @@
 ﻿@page "/produtos/list"
 @using CrudBlazor.Models
 @inject CrudBlazor.Services.IProdutoService produtoService
-@inject NavigationManager navManager
+@inject CrudBlazor.Services.ICategoriaService categoriaService
 @inject IJSRuntime js
+@inject NavigationManager navManager
 
-<h3>List</h3>   
+
+<h3>List</h3>
 <a href="produtos/create/" class="btn btn-success botao-add">Adicionar</a>
 
 <div>
     @if (produtos == null || !produtos.Any())
     {
         <p>Loading...</p>
-       
+
     }
     else
     {
-       
+
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
                     <td>Nome</td>
                     <td>Preço</td>
+                    <td>Categoria</td>
                     <td>Ações</td>
-                    
+
                 </tr>
             </thead>
             <tbody>
-            @foreach(var produto in produtos)
-            {
-                <tr>
-                    <td>@produto.Id</td>
-                    <td>@produto.Nome</td>
-                    <td>@produto.Preco</td>
-                    <td>
-                        <a href="produtos/update/@produto.Id" class="btn btn-warning">Editar</a>
-                        <button class="btn btn-danger" @onclick="(() => DeleteProduto(produto.Id))">Excluir</button>
-                    </td>
-                </tr>
-
-            }
+                @foreach (var produto in produtos)
+                {
+                    <tr>
+                        <td>@produto.Id</td>
+                        <td>@produto.Nome</td>
+                        <td>@produto.Preco</td>
+                        <td >@produto.Categoria.Nome</td>
+                        <td>
+                            <a href="produtos/update/@produto.Id" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger" @onclick="(() => DeleteProduto(produto.Id))">Excluir</button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     }

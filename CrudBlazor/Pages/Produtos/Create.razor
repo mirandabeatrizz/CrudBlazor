@@ -1,6 +1,7 @@
 ﻿@page "/produtos/create"
 @using CrudBlazor.Models
 @inject CrudBlazor.Services.IProdutoService produtoService
+@inject CrudBlazor.Services.ICategoriaService categoriaService
 @inject NavigationManager navManager
 
 
@@ -10,8 +11,19 @@
     <div class="form-group">
         <label for="nome">Nome:</label>
         <InputText @bind-Value="produto.Nome" class="form-control" id="nome"></InputText>
+    </div>
+    <div class="form-group">
         <label for="preco">Preço:</label>
         <InputNumber @bind-Value="produto.Preco" class="form-control" id="preco"></InputNumber>
+    </div>
+    <div class="form-group">
+        <label for="categoria">Categoria</label>
+        <InputSelect @bind-Value="produto.CategoriaId" class="form-control" id="categoria">
+            @foreach (var categoria in categorias)
+            {
+             <option value="@categoria.Id">@categoria.Nome</option>
+            }
+        </InputSelect>
     </div>
     <br>
     <button class="btn btn-primary" type="submit">
@@ -23,6 +35,13 @@
 @code {
 
     private Produto produto = new Produto();
+    private List<Categoria> categorias = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        categorias = await categoriaService.FindAllAsync();
+    }
+
     private async Task CriarProduto()
     {
         await produtoService.AddProduto(produto);
